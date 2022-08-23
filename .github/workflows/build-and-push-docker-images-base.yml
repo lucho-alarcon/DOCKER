@@ -32,6 +32,15 @@ jobs:
         images: ${{ secrets.DOCKER_REPOSITORY_NAME }}/base
     
     - name: Build and push base image
+      if: contains(github.event.head_commit.message, 'build=LATEST')    
+      uses: docker/build-push-action@v3
+      with:
+        context: ./latest
+        push: true
+        tags: ${{ secrets.DOCKER_REPOSITORY_NAME }}/base:latest
+        labels: ${{ steps.metadata-base.outputs.labels }}
+
+    - name: Build and push base image
       if: contains(github.event.head_commit.message, 'build=UBUNTU-UTILS')    
       uses: docker/build-push-action@v3
       with:
