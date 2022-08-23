@@ -1,0 +1,44 @@
+name: Docker Image CD
+
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+
+  build-and-push-image:
+
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    
+    - name: Log in to Docker HUB
+      if: contains(github.event.head_commit.message, 'build=BASE')    
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Metadata Base
+      if: contains(github.event.head_commit.message, 'build=BASE')    
+      id: metadata-base
+      uses: docker/metadata-action@v4
+      with:
+        images: ${{ secrets.DOCKER_REPOSITORY_NAME }}/base
+    
+    - name: Build and push base image
+      if: contains(github.event.head_commit.message, 'build=BASE')
+      uses: docker/build-push-action@v3
+      with:
+        context: ./UbuntuBase+Utils
+        push: true
+        tags: ${{ secrets.DOCKER_REPOSITORY_NAME }}/base:ubuntu-utils
+        labels: ${{ steps.metadata-base.outputs.labels }}
+
