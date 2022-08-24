@@ -59,11 +59,11 @@ jobs:
         labels: ${{ steps.metadata-base.outputs.labels }}
 
     - name: Build and push base image
-      #if: contains(github.event.head_commit.message, 'build=UBUNTU-UTILS')
+      #if: contains(github.event.head_commit.message, 'build=UTILS')
       uses: docker/build-push-action@v3
       with:
-        context: ./UbuntuBase+Utils
+        context: ./utils
         push: true
-        tags: ${{ secrets.DOCKER_REPOSITORY_NAME }}/base:ubuntu-utils
+        tags: ${{ secrets.DOCKER_REPOSITORY_NAME }}/base:utils
         labels: ${{ steps.metadata-base.outputs.labels }}
 
