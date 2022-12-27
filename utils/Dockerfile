@@ -13,6 +13,7 @@ RUN echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] htt
 # install VIM - MYSQL CLIENT - SSH - PYTHON 3.10 - WGET - KUBECTL - GIT
 RUN apt-get update
 RUN apt-get install -y vim \
+                        unzip \ 
                         default-mysql-client \
                         openssh-client \
                         python3.10 \
