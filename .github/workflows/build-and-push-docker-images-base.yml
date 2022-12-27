@@ -31,7 +31,7 @@ jobs:
         images: ${{ secrets.DOCKER_REPOSITORY_NAME }}/base
     
     - name: Build and push base image
-      #if: contains(github.event.head_commit.message, 'build=LATEST')
+      if: contains(github.event.head_commit.message, 'build=LATEST')
       uses: docker/build-push-action@v3
       with:
         context: ./latest
@@ -40,7 +40,7 @@ jobs:
         labels: ${{ steps.metadata-base.outputs.labels }}
 
     - name: Build and push base image
-      #if: contains(github.event.head_commit.message, 'build=OPENJDK-18')
+      if: contains(github.event.head_commit.message, 'build=OPENJDK-18')
       uses: docker/build-push-action@v3
       with:
         context: ./openjdk-18
@@ -49,7 +49,7 @@ jobs:
         labels: ${{ steps.metadata-base.outputs.labels }}
 
     - name: Build and push base image
-      #if: contains(github.event.head_commit.message, 'build=JMETER-5.5')
+      if: contains(github.event.head_commit.message, 'build=JMETER-5.5')
       uses: docker/build-push-action@v3
       with:
         context: ./jmeter-5.5
@@ -58,7 +58,7 @@ jobs:
         labels: ${{ steps.metadata-base.outputs.labels }}
 
     - name: Build and push base image
-      #if: contains(github.event.head_commit.message, 'build=UTILS')
+      if: contains(github.event.head_commit.message, 'build=UTILS')
       uses: docker/build-push-action@v3
       with:
         context: ./utils
@@ -67,7 +67,7 @@ jobs:
         labels: ${{ steps.metadata-base.outputs.labels }}
 
     - name: Build and push base image
-      #if: contains(github.event.head_commit.message, 'build=AWS-CLI')
+      if: contains(github.event.head_commit.message, 'build=AWS-CLI')
       uses: docker/build-push-action@v3
       with:
         context: ./aws-cli
