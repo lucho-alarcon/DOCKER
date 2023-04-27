@@ -1,4 +1,4 @@
-# Imagen docker de Ubuntu con utilitarios genericos para operar un entorno Linux Ubuntu + JAVA
+# Imagen docker de Ubuntu con utilitarios genericos para operar un entorno Linux Ubuntu + JAVA JENKINS
 FROM luchoalarcon/base:openjdk-17
 
 LABEL maintainer = "Lucho Alarcon luis.omar.alarcon@gmail.com"
