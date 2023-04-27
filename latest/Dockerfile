@@ -2,6 +2,7 @@
 FROM ubuntu:latest
 
 LABEL maintainer = "Lucho Alarcon luis.omar.alarcon@gmail.com"
+LABEL commit-message = "build=LATEST"
 
 # update & upgrade
 RUN apt-get update && apt-get -y upgrade
