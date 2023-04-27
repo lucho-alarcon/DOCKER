@@ -1,6 +1,5 @@
 # Imagen docker de Ubuntu con utilitarios genericos para operar un entorno Linux Ubuntu + JAVA
-#FROM luchoalarcon/base:openjdk-18
-FROM luchoalarcon/base:openjdk-18
+FROM luchoalarcon/base:openjdk-17
 
 LABEL maintainer = "Lucho Alarcon luis.omar.alarcon@gmail.com"
 LABEL commit-message = "build=JENKINS"
