@@ -2,6 +2,7 @@
 FROM luchoalarcon/base:latest
 
 LABEL maintainer = "Lucho Alarcon luis.omar.alarcon@gmail.com"
+LABEL commit-message = "build=UTILS"
 
 # install CURL
 RUN apt-get update && apt-get -y upgrade
@@ -12,17 +13,13 @@ RUN echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] htt
 
 # install VIM - MYSQL CLIENT - SSH - PYTHON 3.10 - WGET - KUBECTL - GIT
 RUN apt-get update
-RUN apt-get install -y vim \
-                        unzip \ 
+RUN apt-get install -y unzip \ 
                         default-mysql-client \
-                        openssh-client \
                         python3.10 \
-                        wget \
                         apt-transport-https \
                         ca-certificates \
                         kubectl \
                         git
-
 
 # update & upgrade
 RUN apt-get update && apt-get -y upgrade
