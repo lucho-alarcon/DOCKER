@@ -40,6 +40,15 @@ jobs:
         labels: ${{ steps.metadata-base.outputs.labels }}
 
     - name: Build and push base image
+      if: contains(github.event.head_commit.message, 'build=UTILS')
+      uses: docker/build-push-action@v3
+      with:
+        context: ./utils
+        push: true
+        tags: ${{ secrets.DOCKER_REPOSITORY_NAME }}/base:utils
+        labels: ${{ steps.metadata-base.outputs.labels }}
+
+    - name: Build and push base image
       if: contains(github.event.head_commit.message, 'build=OPENJDK-18')
       uses: docker/build-push-action@v3
       with:
@@ -49,22 +58,22 @@ jobs:
         labels: ${{ steps.metadata-base.outputs.labels }}
 
     - name: Build and push base image
-      if: contains(github.event.head_commit.message, 'build=JMETER-5.5')
-      uses: docker/build-push-action@v3
-      with:
-        context: ./jmeter-5.5
-        push: true
-        tags: ${{ secrets.DOCKER_REPOSITORY_NAME }}/base:jmeter-5.5
-        labels: ${{ steps.metadata-base.outputs.labels }}
-
+    if: contains(github.event.head_commit.message, 'build=JENKINS')
+    uses: docker/build-push-action@v3
+    with:
+      context: ./jenkins
+      push: true
+      tags: ${{ secrets.DOCKER_REPOSITORY_NAME }}/base:jenkins
+      labels: ${{ steps.metadata-base.outputs.labels }}
+      
     - name: Build and push base image
-      if: contains(github.event.head_commit.message, 'build=UTILS')
-      uses: docker/build-push-action@v3
-      with:
-        context: ./utils
-        push: true
-        tags: ${{ secrets.DOCKER_REPOSITORY_NAME }}/base:utils
-        labels: ${{ steps.metadata-base.outputs.labels }}
+    if: contains(github.event.head_commit.message, 'build=JMETER-5.5')
+    uses: docker/build-push-action@v3
+    with:
+      context: ./jmeter-5.5
+      push: true
+      tags: ${{ secrets.DOCKER_REPOSITORY_NAME }}/base:jmeter-5.5
+      labels: ${{ steps.metadata-base.outputs.labels }}
 
     - name: Build and push base image
       if: contains(github.event.head_commit.message, 'build=AWS-CLI')
