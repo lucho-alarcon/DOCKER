@@ -1,10 +1,10 @@
 # Imagen docker de Ubuntu con utilitarios genericos para operar un entorno Linux Ubuntu
-FROM ubuntu:latest
+FROM luchoalarcon/base:latest
 
 LABEL maintainer = "Lucho Alarcon luis.omar.alarcon@gmail.com"
 
 # install CURL
-RUN apt-get update && apt-get -y upgrade && apt-get install -y curl
+RUN apt-get update && apt-get -y upgrade
 
 # KUBECTL dependencies
 RUN curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
@@ -22,6 +22,10 @@ RUN apt-get install -y vim \
                         ca-certificates \
                         kubectl \
                         git
+
+
+# update & upgrade
+RUN apt-get update && apt-get -y upgrade
 
 # update headers
 RUN apt-get update
