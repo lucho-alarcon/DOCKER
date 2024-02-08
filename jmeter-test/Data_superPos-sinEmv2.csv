@@ -1,0 +1,2 @@
+batch,cardBrand,cardCategory,cardType,issuer,pinBlock,track2,captureType,fastPayment,isWalletPay,binCard,crypto,currency,installment,lastFourdigits,purchaseNumber,tip,reference,signature
+001,MASTERCARD,PREPAID RELOADABLE,DEBIT,CAJA RURAL DE AH Y CRED CENCOSUD SCOTIA PERU SA,5B518E1D94888DCF,93699963C9E41D843D226A6FB760827329766427F8F376C5,band,FALSE,FALSE,546342,,PEN,0,9163,27805690,0,0020,

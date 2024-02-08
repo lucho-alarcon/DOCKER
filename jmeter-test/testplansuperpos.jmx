@@ -1,0 +1,1087 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.2">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="TestPlan SuperPos" enabled="true">
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="Variables definidas por el Usuario" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Usuarios -  SuperPos - BFF - Full" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Controlador Bucle" enabled="true">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">20</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">0.05</stringProp>
+        <boolProp name="ThreadGroup.delayedStart">false</boolProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">3600</stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">adminapi-v3-qa.culqi.xyz</stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+        </ConfigTestElement>
+        <hashTree/>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Initialize" enabled="false">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+          <boolProp name="TransactionController.parent">false</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Gestor de Cabecera HTTP - Initialize Request" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+          <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="terminalSerie" elementType="Argument">
+                <stringProp name="Argument.name">terminalSerie</stringProp>
+                <stringProp name="Argument.value">P3211126004503</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="encryptionKey" elementType="Argument">
+                <stringProp name="Argument.name">encryptionKey</stringProp>
+                <stringProp name="Argument.value">dRI4ribR?@r0Xi6AcR</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </Arguments>
+          <hashTree/>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="1.0 - Initialize Encrypt" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+    &quot;body&quot;: {&#xd;
+        &quot;terminalSerie&quot;: &quot;${terminalSerie}&quot;,&#xd;
+        &quot;encryptionKey&quot;: &quot;${encryptionKey}&quot;&#xd;
+    }&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">adminapi-v3-qa.culqi.xyz</stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.path">/bff-full/public/v1/encrypt</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+            <boolProp name="HTTPSampler.image_parser">false</boolProp>
+            <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+            <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+            <boolProp name="HTTPSampler.md5">false</boolProp>
+            <intProp name="HTTPSampler.ipSourceType">0</intProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - encryptData" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">encryptData</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.encryptData</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">encryptDataNotFound</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="1.1 - Initialize" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+    &quot;encryptData&quot;: &quot;${encryptData}&quot;&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">adminapi-v3-qa.culqi.xyz</stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.path">/bff-full/public/v1/auth/initialize</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+            <boolProp name="HTTPSampler.image_parser">false</boolProp>
+            <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+            <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+            <boolProp name="HTTPSampler.md5">false</boolProp>
+            <intProp name="HTTPSampler.ipSourceType">0</intProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - x-terminal-serial" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">x-terminal-serial</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.x-terminal-serial</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">x-terminal-serialNotFound</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - x-api-token" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">x-api-token</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.x-api-token</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">x-api-tokenNotFound</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - x-hash-number" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">x-hash-number</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.x-hash-number</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">x-hash-numberNotFound</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Gestor de Cabecera HTTP - Initialize Request" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Content-Type</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">x-terminal-serial</stringProp>
+              <stringProp name="Header.value">P3211126004503</stringProp>
+            </elementProp>
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">x-api-token</stringProp>
+              <stringProp name="Header.value">culqi.0cfa8a1dfc5258c298f932b050620b85</stringProp>
+            </elementProp>
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">x-hash-number</stringProp>
+              <stringProp name="Header.value">1695914552988</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="Validate ApiKey" enabled="false">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+          <boolProp name="TransactionController.parent">false</boolProp>
+        </TransactionController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="2.0 - Validate Apikey Encrypt" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+    &quot;body&quot;: {&#xd;
+        &quot;apiKey&quot;: &quot;${x-api-token}&quot;&#xd;
+    }&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">adminapi-v3-qa.culqi.xyz</stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.path">/bff-full/public/v1/encrypt</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+            <boolProp name="HTTPSampler.image_parser">false</boolProp>
+            <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+            <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+            <boolProp name="HTTPSampler.md5">false</boolProp>
+            <intProp name="HTTPSampler.ipSourceType">0</intProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - encryptData" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">encryptData</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.encryptData</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+              <stringProp name="JSONPostProcessor.defaultValues">encryptDataNotFound</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="2.1 - Validate Apikey" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+    &quot;encryptData&quot;: &quot;${encryptData}&quot;&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">adminapi-v3-qa.culqi.xyz</stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.path">/bff-full/public/v1/auth/validate/apikey</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+            <boolProp name="HTTPSampler.image_parser">false</boolProp>
+            <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+            <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+            <boolProp name="HTTPSampler.md5">false</boolProp>
+            <intProp name="HTTPSampler.ipSourceType">0</intProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+        </hashTree>
+        <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="Parámetros de Usuario" enabled="true">
+          <collectionProp name="UserParameters.names">
+            <stringProp name="1236512199">purchaseNumber1</stringProp>
+            <stringProp name="1236512200">purchaseNumber2</stringProp>
+            <stringProp name="1236512201">purchaseNumber3</stringProp>
+            <stringProp name="1236512202">purchaseNumber4</stringProp>
+          </collectionProp>
+          <collectionProp name="UserParameters.thread_values">
+            <collectionProp name="818963305">
+              <stringProp name="-2039844971">${__intSum(99000668,${__counter(1,)})}</stringProp>
+              <stringProp name="303156088">${__intSum(1600,${__counter(1,)})}</stringProp>
+              <stringProp name="-1516045483">${__intSum(1900,${__counter(1,)})}</stringProp>
+              <stringProp name="-482569890">${__intSum(99000010,${__counter(1,)})}</stringProp>
+            </collectionProp>
+          </collectionProp>
+          <boolProp name="UserParameters.per_iteration">false</boolProp>
+        </UserParameters>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="3.1- Petición HTTP - Encryp for Authorize sin PIN" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;body&quot;: {&#xd;
+    &quot;batch&quot;: &quot;${batch}&quot;,&#xd;
+    &quot;binLookup&quot;: {&#xd;
+        &quot;cardBrand&quot;: &quot;${cardBrand}&quot;,&#xd;
+        &quot;cardCategory&quot;: &quot;${cardCategory}&quot;,&#xd;
+        &quot;cardType&quot;: &quot;${cardType}&quot;,&#xd;
+        &quot;country&quot;: &quot;PERU&quot;,&#xd;
+        &quot;countryCode&quot;: &quot;PE&quot;,&#xd;
+        &quot;currencyCode&quot;: &quot;PEN&quot;,&#xd;
+        &quot;issuer&quot;: &quot;${issuer}&quot;&#xd;
+    },&#xd;
+    &quot;card&quot;: {&#xd;
+        &quot;emv&quot;: &quot;${emv}&quot;,&#xd;
+        &quot;sequenceNumber&quot;: &quot;${sequenceNumber}&quot;,&#xd;
+        &quot;track2&quot;: &quot;${track2}&quot;&#xd;
+    },&#xd;
+    &quot;cryptography&quot;: {&#xd;
+        &quot;mode&quot;: &quot;DEVICE&quot;,&#xd;
+        &quot;owner&quot;: &quot;P3211126004503&quot;,&#xd;
+        &quot;scopes&quot;: [&#xd;
+            {&#xd;
+                &quot;elements&quot;: [&#xd;
+                    &quot;card.track2&quot;&#xd;
+                ],&#xd;
+                &quot;keyId&quot;: &quot;data&quot;,&#xd;
+                &quot;keyType&quot;: &quot;DATA&quot;&#xd;
+            }&#xd;
+        ]&#xd;
+    },&#xd;
+    &quot;device&quot;: {&#xd;
+        &quot;aid&quot;: &quot;${aid}&quot;,&#xd;
+        &quot;captureType&quot;: &quot;${captureType}&quot;,&#xd;
+        &quot;fastPayment&quot;: &quot;${fastPayment}&quot;,&#xd;
+        &quot;isWalletPay&quot;: &quot;${isWalletPay}&quot;,&#xd;
+        &quot;terminalId&quot;: &quot;1907373&quot;,&#xd;
+        &quot;unattended&quot;: false,&#xd;
+        &quot;version&quot;: &quot;1.6.0.0.qa&quot;&#xd;
+    },&#xd;
+    &quot;header&quot;: {&#xd;
+        &quot;externalId&quot;: &quot;12a672e3-8889-4514-a608-7c42c745c62a&quot;&#xd;
+    },&#xd;
+    &quot;merchant&quot;: {&#xd;
+        &quot;merchantId&quot;: &quot;45625&quot;&#xd;
+    },&#xd;
+    &quot;order&quot;: {&#xd;
+        &quot;amount&quot;: &quot;${__Random(1,49)}&quot;,&#xd;
+        &quot;binCard&quot;: &quot;${binCard}&quot;,&#xd;
+        &quot;channel&quot;: &quot;mpos&quot;,&#xd;
+        &quot;countable&quot;: true,&#xd;
+        &quot;crypto&quot;: &quot;${crypto}&quot;,&#xd;
+        &quot;currency&quot;: &quot;${currency}&quot;,&#xd;
+        &quot;installment&quot;: &quot;${installment}&quot;,&#xd;
+        &quot;lastFourdigits&quot;: &quot;${lastFourdigits}&quot;,&#xd;
+        &quot;purchaseNumber&quot;: &quot;${purchaseNumber1}&quot;,&#xd;
+        &quot;tip&quot;: &quot;${tip}&quot;&#xd;
+    },&#xd;
+    &quot;reference&quot;: &quot;${reference}&quot;,&#xd;
+    &quot;signature&quot;: &quot;${signature}&quot;&#xd;
+}&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.path">bff-full/public/v1/encrypt</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Configuración del CSV Data Set" enabled="true">
+            <stringProp name="filename">Data_superPos-sinPIN2.csv</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="variableNames">batch,cardBrand,cardCategory,cardType,issuer,emv,sequenceNumber,track2,aid,captureType,fastPayment,isWalletPay,binCard,crypto,currency,installment,lastFourdigits,purchaseNumber,tip,reference,signature</stringProp>
+            <boolProp name="ignoreFirstLine">true</boolProp>
+            <stringProp name="delimiter">,</stringProp>
+            <boolProp name="quotedData">false</boolProp>
+            <boolProp name="recycle">true</boolProp>
+            <boolProp name="stopThread">false</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - encryptDataAuthorize" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">encryptDataSinPin</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.encryptData</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">encryptDataSinPinNotFound</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="false">
+            <stringProp name="ConstantTimer.delay">500</stringProp>
+          </ConstantTimer>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="3.1.1- Petición HTTP - Authorize sin Pin" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;encryptData&quot;: &quot;${encryptDataSinPin}&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.path">/bff-full/public/v1/mpos-transaction/transaction/authorize</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="3.2- Petición HTTP - Encryp for Authorize con PIN" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;body&quot;: {&#xd;
+    &quot;batch&quot;: &quot;${batch}&quot;,&#xd;
+    &quot;binLookup&quot;: {&#xd;
+        &quot;cardBrand&quot;: &quot;${cardBrand}&quot;,&#xd;
+        &quot;cardCategory&quot;: &quot;${cardCategory}&quot;,&#xd;
+        &quot;cardType&quot;: &quot;${cardType}&quot;,&#xd;
+        &quot;country&quot;: &quot;PERU&quot;,&#xd;
+        &quot;countryCode&quot;: &quot;PE&quot;,&#xd;
+        &quot;currencyCode&quot;: &quot;PEN&quot;,&#xd;
+        &quot;issuer&quot;: &quot;${issuer}&quot;&#xd;
+    },&#xd;
+    &quot;card&quot;: {&#xd;
+        &quot;emv&quot;: &quot;${emv}&quot;,&#xd;
+        &quot;pinBlock&quot;: &quot;${pinBlock}&quot;,&#xd;
+        &quot;sequenceNumber&quot;: &quot;${sequenceNumber}&quot;,&#xd;
+        &quot;track2&quot;: &quot;${track2}&quot;&#xd;
+    },&#xd;
+    &quot;cryptography&quot;: {&#xd;
+        &quot;mode&quot;: &quot;DEVICE&quot;,&#xd;
+        &quot;owner&quot;: &quot;P3211126004503&quot;,&#xd;
+        &quot;scopes&quot;: [&#xd;
+            {&#xd;
+                &quot;elements&quot;: [&#xd;
+                    &quot;card.track2&quot;&#xd;
+                ],&#xd;
+                &quot;keyId&quot;: &quot;data&quot;,&#xd;
+                &quot;keyType&quot;: &quot;DATA&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;elements&quot;: [&#xd;
+                    &quot;card.pinBlock&quot;&#xd;
+                ],&#xd;
+                &quot;keyId&quot;: &quot;pin&quot;,&#xd;
+                &quot;keyType&quot;: &quot;PIN&quot;&#xd;
+            }&#xd;
+        ]&#xd;
+    },&#xd;
+    &quot;device&quot;: {&#xd;
+        &quot;aid&quot;: &quot;${aid}&quot;,&#xd;
+        &quot;captureType&quot;: &quot;${captureType}&quot;,&#xd;
+        &quot;fastPayment&quot;: &quot;${fastPayment}&quot;,&#xd;
+        &quot;isWalletPay&quot;: &quot;${isWalletPay}&quot;,&#xd;
+        &quot;terminalId&quot;: &quot;1907373&quot;,&#xd;
+        &quot;unattended&quot;: false,&#xd;
+        &quot;version&quot;: &quot;1.6.0.0.qa&quot;&#xd;
+    },&#xd;
+    &quot;header&quot;: {&#xd;
+        &quot;externalId&quot;: &quot;12a672e3-8889-4514-a608-7c42c745c62a&quot;&#xd;
+    },&#xd;
+    &quot;merchant&quot;: {&#xd;
+        &quot;merchantId&quot;: &quot;45625&quot;&#xd;
+    },&#xd;
+    &quot;order&quot;: {&#xd;
+        &quot;amount&quot;: &quot;${__Random(1,49)}&quot;,&#xd;
+        &quot;binCard&quot;: &quot;${binCard}&quot;,&#xd;
+        &quot;channel&quot;: &quot;mpos&quot;,&#xd;
+        &quot;countable&quot;: true,&#xd;
+        &quot;crypto&quot;: &quot;${crypto}&quot;,&#xd;
+        &quot;currency&quot;: &quot;${currency}&quot;,&#xd;
+        &quot;installment&quot;: &quot;${installment}&quot;,&#xd;
+        &quot;lastFourdigits&quot;: &quot;${lastFourdigits}&quot;,&#xd;
+        &quot;purchaseNumber&quot;: &quot;${purchaseNumber2}&quot;,&#xd;
+        &quot;tip&quot;: &quot;${tip}&quot;&#xd;
+    },&#xd;
+    &quot;reference&quot;: &quot;${reference}&quot;,&#xd;
+    &quot;signature&quot;: &quot;${signature}&quot;&#xd;
+}&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.path">bff-full/public/v1/encrypt</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Configuración del CSV Data Set" enabled="true">
+            <stringProp name="filename">Data_superPos-conPIN2.csv</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="variableNames">batch,cardBrand,cardCategory,cardType,issuer,emv,pinBlock,sequenceNumber,track2,aid,captureType,fastPayment,isWalletPay,binCard,crypto,currency,installment,lastFourdigits,purchaseNumber,tip,reference,signature</stringProp>
+            <boolProp name="ignoreFirstLine">true</boolProp>
+            <stringProp name="delimiter">,</stringProp>
+            <boolProp name="quotedData">false</boolProp>
+            <boolProp name="recycle">true</boolProp>
+            <boolProp name="stopThread">false</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - encryptDataAuthorize" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">encryptDataConPin</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.encryptData</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">encryptDataConPinNotFound</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="false">
+            <stringProp name="ConstantTimer.delay">500</stringProp>
+          </ConstantTimer>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="3.2.1- Petición HTTP - Authorize con Pin" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;encryptData&quot;: &quot;${encryptDataConPin}&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.path">/bff-full/public/v1/mpos-transaction/transaction/authorize</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="3.3- Petición HTTP - Encryp for Authorize sin emv" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;body&quot;: {&#xd;
+    &quot;batch&quot;: &quot;${batch}&quot;,&#xd;
+    &quot;binLookup&quot;: {&#xd;
+        &quot;cardBrand&quot;: &quot;${cardBrand}&quot;,&#xd;
+        &quot;cardCategory&quot;: &quot;${cardCategory}&quot;,&#xd;
+        &quot;cardType&quot;: &quot;${cardType}&quot;,&#xd;
+        &quot;country&quot;: &quot;PERU&quot;,&#xd;
+        &quot;countryCode&quot;: &quot;PE&quot;,&#xd;
+        &quot;currencyCode&quot;: &quot;PEN&quot;,&#xd;
+        &quot;issuer&quot;: &quot;${issuer}&quot;&#xd;
+    },&#xd;
+    &quot;card&quot;: {&#xd;
+        &quot;pinBlock&quot;: &quot;${pinBlock}&quot;,&#xd;
+        &quot;track2&quot;: &quot;${track2}&quot;&#xd;
+    },&#xd;
+    &quot;cryptography&quot;: {&#xd;
+        &quot;mode&quot;: &quot;DEVICE&quot;,&#xd;
+        &quot;owner&quot;: &quot;P3211126004503&quot;,&#xd;
+        &quot;scopes&quot;: [&#xd;
+            {&#xd;
+                &quot;elements&quot;: [&#xd;
+                    &quot;card.track2&quot;&#xd;
+                ],&#xd;
+                &quot;keyId&quot;: &quot;data&quot;,&#xd;
+                &quot;keyType&quot;: &quot;DATA&quot;&#xd;
+            },&#xd;
+            {&#xd;
+                &quot;elements&quot;: [&#xd;
+                    &quot;card.pinBlock&quot;&#xd;
+                ],&#xd;
+                &quot;keyId&quot;: &quot;pin&quot;,&#xd;
+                &quot;keyType&quot;: &quot;PIN&quot;&#xd;
+            }&#xd;
+        ]&#xd;
+    },&#xd;
+    &quot;device&quot;: {&#xd;
+        &quot;captureType&quot;: &quot;${captureType}&quot;,&#xd;
+        &quot;fastPayment&quot;: &quot;${fastPayment}&quot;,&#xd;
+        &quot;isWalletPay&quot;: &quot;${isWalletPay}&quot;,&#xd;
+        &quot;terminalId&quot;: &quot;1907373&quot;,&#xd;
+        &quot;unattended&quot;: false,&#xd;
+        &quot;version&quot;: &quot;1.6.0.0.qa&quot;&#xd;
+    },&#xd;
+    &quot;header&quot;: {&#xd;
+        &quot;externalId&quot;: &quot;12a672e3-8889-4514-a608-7c42c745c62a&quot;&#xd;
+    },&#xd;
+    &quot;merchant&quot;: {&#xd;
+        &quot;merchantId&quot;: &quot;45625&quot;&#xd;
+    },&#xd;
+    &quot;order&quot;: {&#xd;
+        &quot;amount&quot;: &quot;${__Random(1,49)}&quot;,&#xd;
+        &quot;binCard&quot;: &quot;${binCard}&quot;,&#xd;
+        &quot;channel&quot;: &quot;mpos&quot;,&#xd;
+        &quot;countable&quot;: true,&#xd;
+        &quot;crypto&quot;: &quot;${crypto}&quot;,&#xd;
+        &quot;currency&quot;: &quot;${currency}&quot;,&#xd;
+        &quot;installment&quot;: &quot;${installment}&quot;,&#xd;
+        &quot;lastFourdigits&quot;: &quot;${lastFourdigits}&quot;,&#xd;
+        &quot;purchaseNumber&quot;: &quot;${purchaseNumber3}&quot;,&#xd;
+        &quot;tip&quot;: &quot;${tip}&quot;&#xd;
+    },&#xd;
+    &quot;reference&quot;: &quot;${reference}&quot;,&#xd;
+    &quot;signature&quot;: &quot;${signature}&quot;&#xd;
+}&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.path">bff-full/public/v1/encrypt</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Configuración del CSV Data Set" enabled="true">
+            <stringProp name="filename">Data_superPos-sinEmv2.csv</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="variableNames">batch,cardBrand,cardCategory,cardType,issuer,pinBlock,track2,captureType,fastPayment,isWalletPay,binCard,crypto,currency,installment,lastFourdigits,purchaseNumber,tip,reference,signature</stringProp>
+            <boolProp name="ignoreFirstLine">true</boolProp>
+            <stringProp name="delimiter">,</stringProp>
+            <boolProp name="quotedData">false</boolProp>
+            <boolProp name="recycle">true</boolProp>
+            <boolProp name="stopThread">false</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - encryptDataAuthorize" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">encryptDataSinEmv</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.encryptData</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">encryptDataSinEmvNotFound</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="false">
+            <stringProp name="ConstantTimer.delay">500</stringProp>
+          </ConstantTimer>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="3.3.1- Petición HTTP - Authorize sin emv" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;encryptData&quot;: &quot;${encryptDataSinEmv}&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.path">/bff-full/public/v1/mpos-transaction/transaction/authorize</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="3.4- Petición HTTP - Encryp for Authorize sin emv sin pin" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;body&quot;: {&#xd;
+    &quot;batch&quot;: &quot;${batch}&quot;,&#xd;
+    &quot;binLookup&quot;: {&#xd;
+        &quot;cardBrand&quot;: &quot;${cardBrand}&quot;,&#xd;
+        &quot;cardCategory&quot;: &quot;${cardCategory}&quot;,&#xd;
+        &quot;cardType&quot;: &quot;${cardType}&quot;,&#xd;
+        &quot;country&quot;: &quot;PERU&quot;,&#xd;
+        &quot;countryCode&quot;: &quot;PE&quot;,&#xd;
+        &quot;currencyCode&quot;: &quot;PEN&quot;,&#xd;
+        &quot;issuer&quot;: &quot;${issuer}&quot;&#xd;
+    },&#xd;
+    &quot;card&quot;: {&#xd;
+        &quot;track2&quot;: &quot;${track2}&quot;&#xd;
+    },&#xd;
+    &quot;cryptography&quot;: {&#xd;
+        &quot;mode&quot;: &quot;DEVICE&quot;,&#xd;
+        &quot;owner&quot;: &quot;P3211126004503&quot;,&#xd;
+        &quot;scopes&quot;: [&#xd;
+            {&#xd;
+                &quot;elements&quot;: [&#xd;
+                    &quot;card.track2&quot;&#xd;
+                ],&#xd;
+                &quot;keyId&quot;: &quot;data&quot;,&#xd;
+                &quot;keyType&quot;: &quot;DATA&quot;&#xd;
+            }&#xd;
+        ]&#xd;
+    },&#xd;
+    &quot;device&quot;: {&#xd;
+        &quot;captureType&quot;: &quot;${captureType}&quot;,&#xd;
+        &quot;fastPayment&quot;: &quot;${fastPayment}&quot;,&#xd;
+        &quot;isWalletPay&quot;: &quot;${isWalletPay}&quot;,&#xd;
+        &quot;terminalId&quot;: &quot;1907373&quot;,&#xd;
+        &quot;unattended&quot;: false,&#xd;
+        &quot;version&quot;: &quot;1.6.0.0.qa&quot;&#xd;
+    },&#xd;
+    &quot;header&quot;: {&#xd;
+        &quot;externalId&quot;: &quot;12a672e3-8889-4514-a608-7c42c745c62a&quot;&#xd;
+    },&#xd;
+    &quot;merchant&quot;: {&#xd;
+        &quot;merchantId&quot;: &quot;45625&quot;&#xd;
+    },&#xd;
+    &quot;order&quot;: {&#xd;
+        &quot;amount&quot;: &quot;${__Random(1,49)}&quot;,&#xd;
+        &quot;binCard&quot;: &quot;${binCard}&quot;,&#xd;
+        &quot;channel&quot;: &quot;mpos&quot;,&#xd;
+        &quot;countable&quot;: true,&#xd;
+        &quot;crypto&quot;: &quot;${crypto}&quot;,&#xd;
+        &quot;currency&quot;: &quot;${currency}&quot;,&#xd;
+        &quot;installment&quot;: &quot;${installment}&quot;,&#xd;
+        &quot;lastFourdigits&quot;: &quot;${lastFourdigits}&quot;,&#xd;
+        &quot;purchaseNumber&quot;: &quot;${purchaseNumber4}&quot;,&#xd;
+        &quot;tip&quot;: &quot;${tip}&quot;&#xd;
+    },&#xd;
+    &quot;reference&quot;: &quot;${reference}&quot;,&#xd;
+    &quot;signature&quot;: &quot;${signature}&quot;&#xd;
+}&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.path">bff-full/public/v1/encrypt</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Configuración del CSV Data Set" enabled="true">
+            <stringProp name="filename">Data_superPos-sinPINsinemv2.csv</stringProp>
+            <stringProp name="fileEncoding"></stringProp>
+            <stringProp name="variableNames">batch,cardBrand,cardCategory,cardType,issuer,track2,captureType,fastPayment,isWalletPay,binCard,currency,installment,lastFourdigits,purchaseNumber,tip,reference,signature</stringProp>
+            <boolProp name="ignoreFirstLine">true</boolProp>
+            <stringProp name="delimiter">,</stringProp>
+            <boolProp name="quotedData">false</boolProp>
+            <boolProp name="recycle">true</boolProp>
+            <boolProp name="stopThread">false</boolProp>
+            <stringProp name="shareMode">shareMode.all</stringProp>
+          </CSVDataSet>
+          <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor - encryptDataAuthorize" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">encryptDataSinEmvSinPin</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$.encryptData</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">1</stringProp>
+            <stringProp name="JSONPostProcessor.defaultValues">encryptDataSinEmvSinPinNotFound</stringProp>
+          </JSONPostProcessor>
+          <hashTree/>
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="false">
+            <stringProp name="ConstantTimer.delay">500</stringProp>
+          </ConstantTimer>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="3.4.1- Petición HTTP - Authorize sin emv sin pin" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+    &quot;encryptData&quot;: &quot;${encryptDataSinEmvSinPin}&quot;&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.path">/bff-full/public/v1/mpos-transaction/transaction/authorize</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">false</boolProp>
+          <boolProp name="HTTPSampler.image_parser">false</boolProp>
+          <boolProp name="HTTPSampler.concurrentDwn">false</boolProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <boolProp name="HTTPSampler.md5">false</boolProp>
+          <intProp name="HTTPSampler.ipSourceType">0</intProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Aserción de Respuesta" enabled="false">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49586">200</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extractor de Expresiones Regulares" enabled="true">
+          <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+          <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+          <stringProp name="RegexExtractor.refname">actionCode</stringProp>
+          <stringProp name="RegexExtractor.regex">actionCode(.+?)authorizationCode</stringProp>
+          <stringProp name="RegexExtractor.template">$1$</stringProp>
+          <stringProp name="RegexExtractor.default">NotFound</stringProp>
+        </RegexExtractor>
+        <hashTree/>
+        <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="true">
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <boolProp name="resetInterpreter">false</boolProp>
+          <stringProp name="script">
+String actionCode = vars.get(&quot;actionCode&quot;);
+f=new FileOutputStream(&quot;C://Users/ibeth.fretel_culqi/Documents/Scripts Jmeter/Data SuperPos/actionCode.txt&quot;,true);
+log.info(String.valueOf(f));
+p=new PrintStream(f);
+this.interpreter.setOut(p);
+print (actionCode);
+f.close();</stringProp>
+        </BeanShellPostProcessor>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="false">
+          <stringProp name="ConstantTimer.delay">500</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="Ver Árbol de Resultados" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="Ver Árbol de Resultados" enabled="true">
+          <boolProp name="ResultCollector.error_logging">true</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Reporte resumen" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="Ver Resultados en Árbol" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="Ver Resultados en Árbol" enabled="true">
+          <boolProp name="ResultCollector.error_logging">true</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Reporte Percentil" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

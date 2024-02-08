@@ -1,0 +1,2 @@
+batch,cardBrand,cardCategory,cardType,issuer,track2,captureType,fastPayment,isWalletPay,binCard,currency,installment,lastFourdigits,purchaseNumber,tip,reference,signature
+001,VISA,PREPAID,DEBIT,SODEXHO PASS PERU,E6C36ED79DD9740A16233B6365F898D81833402EA7273624,band,TRUE,FALSE,405893,PEN,0,0945,26749922,0,0017,
